@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
+import SigninScreen from "./screens/SigninScreen";
+import SignupScreen from "./screens/SignupScreen";
 
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -21,6 +23,8 @@ export default function App() {
       <Provider store={store}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Signin" component={SigninScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

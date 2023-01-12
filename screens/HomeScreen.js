@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -22,12 +22,14 @@ export default function HomeScreen() {
             justifyContent: "center",
           }}
         >
-          <Text style={{ color: "#fff", fontSize: 32, fontWeight: "bold" }}>
-            <Text style={{ color: "#1282A2" }}>SKI</Text>NOUNOU
+          <Text style={{ color: "#fff", fontSize: 32 }}>
+            <Text style={{ color: "#1282A2", fontWeight: "bold" }}>SKI</Text>
+            NOUNOU
           </Text>
         </View>
         <View style={styles.containerInput}>
           <TouchableOpacity
+            onPress={() => navigation.navigate("Signin")}
             style={{
               width: "60%",
               height: "12%",
@@ -45,6 +47,7 @@ export default function HomeScreen() {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => navigation.navigate("Signup")}
             style={{
               width: "60%",
               height: "12%",
