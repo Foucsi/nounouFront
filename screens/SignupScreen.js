@@ -7,12 +7,69 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../reducers/users";
 
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    fetch(`http://192.168.1.38:3000/users/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+        photo:
+          "https://media.istockphoto.com/id/1300845620/fr/vectoriel/appartement-dic%C3%B4ne-dutilisateur-isol%C3%A9-sur-le-fond-blanc-symbole-utilisateur.jpg?b=1&s=170667a&w=0&k=20&c=HEO2nP4_uEAn0_JzVTU6_Y5hyn-qHxyCrWWTirBvScs=",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.result);
+        if (data.result) {
+          dispatch(
+            login({
+              username: data.user.username,
+              email: data.user.email,
+              token: data.user.token,
+              photo: data.user.photo,
+            })
+          );
+          navigation.navigate("Welcome");
+          setUsername("");
+          setEmail("");
+          setPassword("");
+          setMsg("");
+        } else if (data.error === "Missing or empty fields") {
+          setMsg("Missing or empty fields");
+        } else if (data.error === "User already exists") {
+          setMsg(
+            <View>
+              <Text style={{ color: "#000" }}>User already exists</Text>
+              <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+                <Text
+                  style={{
+                    color: "#000",
+                    textDecorationLine: "underline",
+                    textDecorationStyle: "solid",
+                    textDecorationColor: "#fff",
+                  }}
+                >
+                  connection
+                </Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }
+      });
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
@@ -53,6 +110,7 @@ export default function SignupScreen({ navigation }) {
         <Text>{msg}</Text>
       </View>
       <TouchableOpacity
+        onPress={() => handleSubmit()}
         style={{
           marginTop: 20,
           width: "60%",

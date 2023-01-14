@@ -7,11 +7,70 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../reducers/users";
 
 export default function SigninScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSubmit = async () => {
+    const res = await fetch(`http://192.168.1.38:3000/users/signin`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.result) {
+      dispatch(
+        login({
+          username: data.user.username,
+          token: data.user.token,
+          email: data.user.email,
+          photo: data.user.photo,
+        })
+      );
+      navigation.navigate("Welcome");
+      setUsername("");
+      setPassword("");
+      setMsg("");
+    } else if (data.error === "Missing or empty fields") {
+      setMsg("Missing or empty fields");
+    } else if (data.error === "User not found or wrong password") {
+      setMsg(
+        <View>
+          <Text style={{ color: "#000" }}>User already exists</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setMsg("");
+              setPassword("");
+              setUsername("");
+              navigation.navigate("Signup");
+            }}
+          >
+            <Text
+              style={{
+                color: "#000",
+                textDecorationLine: "underline",
+                textDecorationStyle: "solid",
+                textDecorationColor: "#fff",
+              }}
+            >
+              register
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
@@ -44,6 +103,7 @@ export default function SigninScreen({ navigation }) {
         <Text>{msg}</Text>
       </View>
       <TouchableOpacity
+        onPress={() => handleSubmit()}
         style={{
           marginTop: 20,
           width: "60%",
