@@ -10,7 +10,17 @@ export default function Profils({ profil, images }) {
           source={{ uri: images[Math.floor(Math.random() * images.length)] }}
         />
       </View>
-      <View style={{ height: "30%", width: "100%", backgroundColor: "tomato" }}>
+      <View
+        style={{
+          height: "30%",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#fff",
+          borderColor: "grey",
+          borderWidth: 1,
+        }}
+      >
         <Text>{profil.username}</Text>
       </View>
     </View>
