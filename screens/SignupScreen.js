@@ -18,8 +18,8 @@ export default function SignupScreen({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    fetch(`http://192.168.1.38:3000/users/signup`, {
+  const handleSubmit = async () => {
+    const res = await fetch(`http://172.20.10.2:3000/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -29,46 +29,44 @@ export default function SignupScreen({ navigation }) {
         photo:
           "https://media.istockphoto.com/id/1300845620/fr/vectoriel/appartement-dic%C3%B4ne-dutilisateur-isol%C3%A9-sur-le-fond-blanc-symbole-utilisateur.jpg?b=1&s=170667a&w=0&k=20&c=HEO2nP4_uEAn0_JzVTU6_Y5hyn-qHxyCrWWTirBvScs=",
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.result);
-        if (data.result) {
-          dispatch(
-            login({
-              username: data.user.username,
-              email: data.user.email,
-              token: data.user.token,
-              photo: data.user.photo,
-            })
-          );
-          navigation.navigate("Welcome");
-          setUsername("");
-          setEmail("");
-          setPassword("");
-          setMsg("");
-        } else if (data.error === "Missing or empty fields") {
-          setMsg("Missing or empty fields");
-        } else if (data.error === "User already exists") {
-          setMsg(
-            <View>
-              <Text style={{ color: "#000" }}>User already exists</Text>
-              <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
-                <Text
-                  style={{
-                    color: "#000",
-                    textDecorationLine: "underline",
-                    textDecorationStyle: "solid",
-                    textDecorationColor: "#fff",
-                  }}
-                >
-                  connection
-                </Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }
-      });
+    });
+    const data = await res.json();
+
+    if (data.result) {
+      dispatch(
+        login({
+          username: data.user.username,
+          email: data.user.email,
+          token: data.user.token,
+          photo: data.user.photo,
+        })
+      );
+      navigation.navigate("Welcome");
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setMsg("");
+    } else if (data.error === "Missing or empty fields") {
+      setMsg("Missing or empty fields");
+    } else if (data.error === "User already exists") {
+      setMsg(
+        <View>
+          <Text style={{ color: "#000" }}>User already exists</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+            <Text
+              style={{
+                color: "#000",
+                textDecorationLine: "underline",
+                textDecorationStyle: "solid",
+                textDecorationColor: "#fff",
+              }}
+            >
+              connection
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
   };
   return (
     <View style={styles.container}>
