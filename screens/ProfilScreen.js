@@ -18,7 +18,7 @@ export default function ProfilScreen({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`http://172.20.10.2:3000/users/getPhoto/${users.token}`)
+    fetch(`http://172.20.10.2:3000/users/getPhoto/${name}`)
       .then((res) => res.json())
       .then((data) => {
         setImage(data.data);

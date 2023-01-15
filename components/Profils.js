@@ -1,11 +1,17 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addPhoto } from "../reducers/users";
 
 export default function Profils({ profil, navigation, images }) {
+  const users = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
   const handleSubmit = () => {
     navigation.navigate("Profil", {
       name: profil.username,
     });
+    dispatch(addPhoto(profil.photo));
   };
   return (
     <TouchableOpacity onPress={() => handleSubmit()}>

@@ -4,9 +4,11 @@ import Header from "../components/Header";
 import { useState } from "react";
 import { useEffect } from "react";
 import Profils from "../components/Profils";
+import { useSelector } from "react-redux";
 
 export default function WelcomeScreen({ navigation }) {
   const [allProfil, setAllProfil] = useState();
+  const users = useSelector((state) => state.user.value);
 
   useEffect(() => {
     const fecthData = async () => {
@@ -17,7 +19,7 @@ export default function WelcomeScreen({ navigation }) {
       }
     };
     fecthData();
-  }, []);
+  }, [users.photo]);
 
   return (
     <View style={styles.container}>
