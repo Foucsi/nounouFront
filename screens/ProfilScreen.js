@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 export default function ProfilScreen() {
   const route = useRoute();
@@ -12,10 +13,14 @@ export default function ProfilScreen() {
         <Image
           source={{ uri: image }}
           style={{
+            position: "absolute",
             height: "100%",
             width: "100%",
           }}
         />
+        <TouchableOpacity style={{ position: "relative", top: 430, left: 10 }}>
+          <Entypo name="upload-to-cloud" size={24} color="#1282A2" />
+        </TouchableOpacity>
       </View>
       <View style={{ height: "50%", width: "100%", padding: 20 }}>
         <View>
