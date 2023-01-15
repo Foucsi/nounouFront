@@ -43,8 +43,26 @@ export default function ProfilScreen({ navigation }) {
         .then((data) => {});
       setImage(result.assets[0].uri);
       dispatch(addPhoto(result.assets[0].uri));
+      /* ci dessous code pour cloudinary */
+      const formData = new FormData();
+
+      formData.append("userPhoto", {
+        uri: result.assets[0].uri,
+        name: "photo.jpg",
+        type: "image/jpeg",
+      });
+
+      fetch("http://172.20.10.2:3000/users/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          data.result && dispatch(addPhoto(data.url));
+        });
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={{ height: "50%", width: "100%" }}>
