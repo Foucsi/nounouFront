@@ -3,8 +3,10 @@ import React from "react";
 import { useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 export default function ProfilScreen() {
+  const users = useSelector((state) => state.user.value);
   const route = useRoute();
   const { name, image } = route.params;
   return (
@@ -18,9 +20,15 @@ export default function ProfilScreen() {
             width: "100%",
           }}
         />
-        <TouchableOpacity style={{ position: "relative", top: 430, left: 10 }}>
-          <Entypo name="upload-to-cloud" size={24} color="#1282A2" />
-        </TouchableOpacity>
+        {users.username === name ? (
+          <TouchableOpacity
+            style={{ position: "relative", top: 430, left: 10 }}
+          >
+            <Entypo name="upload-to-cloud" size={24} color="#1282A2" />
+          </TouchableOpacity>
+        ) : (
+          ""
+        )}
       </View>
       <View style={{ height: "50%", width: "100%", padding: 20 }}>
         <View>
