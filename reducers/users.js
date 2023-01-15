@@ -32,8 +32,11 @@ export const userSlice = createSlice({
     addProfil: (state, action) => {
       state.value.profil.push(action.payload.profil);
     },
+    addPhoto: (state, action) => {
+      state.value.photo = action.payload;
+    },
   },
 });
 
-export const { login, logout, addProfil } = userSlice.actions;
+export const { login, logout, addProfil, addPhoto } = userSlice.actions;
 export default userSlice.reducer;

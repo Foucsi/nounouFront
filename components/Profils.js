@@ -1,13 +1,11 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 
-export default function Profils({ profil, images, navigation }) {
+export default function Profils({ profil, navigation, images }) {
   const handleSubmit = () => {
     navigation.navigate("Profil", {
       name: profil.username,
-      image: profil.photo,
     });
-    console.log(profil);
   };
   return (
     <TouchableOpacity onPress={() => handleSubmit()}>
@@ -29,7 +27,7 @@ export default function Profils({ profil, images, navigation }) {
               borderTopLeftRadius: 30,
               borderTopRightRadius: 30,
             }}
-            source={{ uri: images[Math.floor(Math.random() * images.length)] }}
+            source={{ uri: profil.photo }}
           />
         </View>
         <View
