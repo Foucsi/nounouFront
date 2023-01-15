@@ -18,14 +18,14 @@ export default function ProfilScreen({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`http://172.20.10.2:3000/users/getPhoto/${name}`)
+    fetch(`http://192.168.1.51:3000/users/getPhoto/${name}`)
       .then((res) => res.json())
       .then((data) => {
         setImage(data.data);
       });
-  }, []);
+  }, [users.photo]);
 
-  const uploadImage = async () => {
+  const uploadImage = async (img) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -34,7 +34,7 @@ export default function ProfilScreen({ navigation }) {
     });
 
     if (!result.canceled) {
-      fetch(`http://172.20.10.2:3000/users/addPhoto/${users.token}`, {
+      fetch(`http://192.168.1.51:3000/users/addPhoto/${users.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ photo: result.assets[0].uri }),
@@ -47,18 +47,32 @@ export default function ProfilScreen({ navigation }) {
       const formData = new FormData();
 
       formData.append("userPhoto", {
-        uri: result.assets[0].uri,
+        uri: img,
         name: "photo.jpg",
         type: "image/jpeg",
       });
 
-      fetch("http://172.20.10.2:3000/users/upload", {
-        method: "POST",
+      fetch(`http://192.168.1.51:3000/users/upload/${users.token}`, {
+        method: "PUT",
         body: formData,
       })
         .then((response) => response.json())
         .then((data) => {
-          data.result && dispatch(addPhoto(data.url));
+          if (data.result) {
+            dispatch(
+              login({
+                username: data.user.username,
+                email: data.user.email,
+                photo: data.user.photo,
+                token: data.user.token,
+              })
+            );
+            data.result && dispatch(addPhoto(data.url));
+            console.log(data);
+          } else {
+            console.log("url: ", data.url);
+            console.log(data);
+          }
         });
     }
   };
