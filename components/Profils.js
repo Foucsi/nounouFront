@@ -1,45 +1,54 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 
-export default function Profils({ profil, images }) {
+export default function Profils({ profil, images, navigation }) {
+  const handleSubmit = () => {
+    navigation.navigate("Profil", {
+      name: profil.username,
+      image: profil.photo,
+    });
+    console.log(profil);
+  };
   return (
-    <View style={styles.profil}>
-      <View
-        style={{
-          height: "70%",
-          width: "100%",
-          shadowOffset: { width: -2, height: 4 },
-          shadowColor: "#171717",
-          shadowOpacity: 0.2,
-          shadowRadius: 3,
-        }}
-      >
-        <Image
+    <TouchableOpacity onPress={() => handleSubmit()}>
+      <View style={styles.profil}>
+        <View
           style={{
-            height: "100%",
+            height: "70%",
             width: "100%",
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
+            shadowOffset: { width: -2, height: 4 },
+            shadowColor: "#171717",
+            shadowOpacity: 0.2,
+            shadowRadius: 3,
           }}
-          source={{ uri: images[Math.floor(Math.random() * images.length)] }}
-        />
+        >
+          <Image
+            style={{
+              height: "100%",
+              width: "100%",
+              borderTopLeftRadius: 30,
+              borderTopRightRadius: 30,
+            }}
+            source={{ uri: images[Math.floor(Math.random() * images.length)] }}
+          />
+        </View>
+        <View
+          style={{
+            height: "30%",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#fff",
+            borderColor: "#D9D6D0",
+            borderWidth: 1,
+            borderBottomRightRadius: 30,
+            borderBottomLeftRadius: 30,
+          }}
+        >
+          <Text>{profil.username}</Text>
+        </View>
       </View>
-      <View
-        style={{
-          height: "30%",
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#fff",
-          borderColor: "#D9D6D0",
-          borderWidth: 1,
-          borderBottomRightRadius: 30,
-          borderBottomLeftRadius: 30,
-        }}
-      >
-        <Text>{profil.username}</Text>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

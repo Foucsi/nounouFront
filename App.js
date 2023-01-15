@@ -5,13 +5,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import SigninScreen from "./screens/SigninScreen";
 import SignupScreen from "./screens/SignupScreen";
-import Welcome from "./screens/WelcomeScreen";
+import WelcomeScreen from "./screens/WelcomeScreen";
+import ProfilScreen from "./screens/ProfilScreen";
 
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 
 import user from "./reducers/users";
-import WelcomeScreen from "./screens/WelcomeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +28,7 @@ export default function App() {
           <Stack.Screen name="Signin" component={SigninScreen} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Profil" component={ProfilScreen} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Profils from "../components/Profils";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
   const images = [
     "https://images.unsplash.com/photo-1583653319049-4db347571740?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTZ8MTQwMTcxMnx8ZW58MHx8fHw%3D&w=1000&q=80",
     "https://img.static-rmg.be/a/view/q75/w4000/h2667/4779070/2135445-jpg.jpg",
@@ -39,7 +39,14 @@ export default function WelcomeScreen() {
           <View style={{ alignItems: "center" }}>
             {allProfil ? (
               allProfil.map((profil, index) => {
-                return <Profils key={index} profil={profil} images={images} />;
+                return (
+                  <Profils
+                    key={index}
+                    profil={profil}
+                    images={images}
+                    navigation={navigation}
+                  />
+                );
               })
             ) : (
               <Text>text manquant ...</Text>
