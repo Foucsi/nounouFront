@@ -22,7 +22,7 @@ export default function WelcomeScreen() {
 
   useEffect(() => {
     const fecthData = async () => {
-      const res = await fetch("http://172.20.10.2:3000/users/getAllProfil");
+      const res = await fetch("http://192.168.1.51:3000/users/getAllProfil");
       const data = await res.json();
       if (data.result) {
         setAllProfil(data.users);
