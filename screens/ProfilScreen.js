@@ -25,7 +25,7 @@ export default function ProfilScreen({ navigation }) {
       });
   }, [users.photo]);
 
-  const uploadImage = async (img) => {
+  const uploadImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -34,44 +34,16 @@ export default function ProfilScreen({ navigation }) {
     });
 
     if (!result.canceled) {
-      fetch(`http://192.168.1.51:3000/users/addPhoto/${users.token}`, {
+      fetch(`http://172.20.10.2:3000/users/addPhoto/${users.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ photo: result.assets[0].uri }),
       })
         .then((res) => res.json())
-        .then((data) => {});
-      setImage(result.assets[0].uri);
-      dispatch(addPhoto(result.assets[0].uri));
-      /* ci dessous code pour cloudinary */
-      const formData = new FormData();
-
-      formData.append("userPhoto", {
-        uri: img,
-        name: "photo.jpg",
-        type: "image/jpeg",
-      });
-
-      fetch(`http://192.168.1.51:3000/users/upload/${users.token}`, {
-        method: "PUT",
-        body: formData,
-      })
-        .then((response) => response.json())
         .then((data) => {
           if (data.result) {
-            dispatch(
-              login({
-                username: data.user.username,
-                email: data.user.email,
-                photo: data.user.photo,
-                token: data.user.token,
-              })
-            );
-            data.result && dispatch(addPhoto(data.url));
-            console.log(data);
-          } else {
-            console.log("url: ", data.url);
-            console.log(data);
+            setImage(result.assets[0].uri);
+            dispatch(addPhoto(result.assets[0].uri));
           }
         });
     }
