@@ -17,13 +17,13 @@ export default function ProfilScreen({ navigation }) {
   const { name } = route.params;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetch(`http://192.168.1.51:3000/users/getPhoto/${name}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setImage(data.data);
-      });
-  }, [users.photo]);
+  // useEffect(() => {
+  //   fetch(`http://192.168.1.51:3000/users/getPhoto/${name}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setImage(data.data);
+  //     });
+  // }, [users.photo]);
 
   const uploadImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -34,10 +34,29 @@ export default function ProfilScreen({ navigation }) {
     });
 
     if (!result.canceled) {
-      fetch(`http://172.20.10.2:3000/users/addPhoto/${users.token}`, {
-        method: "POST",
+      // fetch(`http://172.20.10.2:3000/users/addPhoto/${users.token}`, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ photo: result.assets[0].uri }),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     if (data.result) {
+      //       setImage(result.assets[0].uri);
+      //       dispatch(addPhoto(result.assets[0].uri));
+      //     }
+      //   });
+      const formData = new FormData();
+      formData.append("userPhoto", {
+        uri: result.assets[0].uri,
+        name: "photo.jpg",
+        type: "image/jpeg",
+      });
+
+      fetch(`http://172.20.10.2:3000/users/upload/${users.token}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ photo: result.assets[0].uri }),
+        body: formData,
       })
         .then((res) => res.json())
         .then((data) => {
