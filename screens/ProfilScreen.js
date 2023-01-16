@@ -54,7 +54,7 @@ export default function ProfilScreen({ navigation }) {
         type: "image/jpeg",
       });
 
-      fetch(`http://192.168.1.51:3000/users/upload/${users.token}`, {
+      fetch(`http://172.20.10.2:3000/users/upload/${users.token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: formData,
