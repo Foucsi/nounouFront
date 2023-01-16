@@ -74,11 +74,25 @@ export default function Header({ navigation }) {
                 />
               </View>
               <View>
-                <Text style={{ color: "#3A3A3A", fontSize: 18 }}>
+                <Text
+                  style={{ color: "#3A3A3A", fontSize: 18, fontWeight: "bold" }}
+                >
                   {users.username.toUpperCase()}
                 </Text>
                 <Text style={{ color: "#3A3A3A" }}>Mon Espace</Text>
               </View>
+            </View>
+            <View style={{ paddingTop: 20 }}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Profil", {
+                    name: users.username,
+                  });
+                  setIsVisible(false);
+                }}
+              >
+                <Text>Voir ou modifier mon profil</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
