@@ -9,6 +9,7 @@ import { addPhoto } from "../reducers/users";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function ProfilScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
@@ -53,7 +54,7 @@ export default function ProfilScreen({ navigation }) {
         type: "image/jpeg",
       });
 
-      fetch(`http://172.20.10.2:3000/users/upload/${users.token}`, {
+      fetch(`http://192.168.1.51:3000/users/upload/${users.token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: formData,
@@ -86,7 +87,7 @@ export default function ProfilScreen({ navigation }) {
             onPress={() => uploadImage()}
             style={{ position: "relative", top: 430, left: 10 }}
           >
-            <Entypo name="upload-to-cloud" size={24} color="#1282A2" />
+            <Entypo name="upload-to-cloud" size={32} color="#1282A2" />
           </TouchableOpacity>
         ) : (
           ""
@@ -111,6 +112,59 @@ export default function ProfilScreen({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
             <Text>retour</Text>
           </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            width: "100%",
+            height: 90,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {users.username === name && (
+            <FontAwesome5 name="pencil-alt" size={24} color="#1282A2" />
+          )}
+        </View>
+        <View
+          style={{
+            width: "100%",
+            height: 130,
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{
+              height: "100%",
+              width: "50%",
+              borderColor: "#DEDCD7",
+              borderWidth: 0.5,
+              padding: 10,
+              backgroundColor: "#1282A2",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Text style={{ color: "#fff", fontSize: 16 }}>Tarif indicatif</Text>
+            <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
+              25 €<Text style={{ fontSize: 16 }}>/heure</Text>
+            </Text>
+          </View>
+          <View
+            style={{
+              height: "100%",
+              width: "50%",
+              borderColor: "#DEDCD7",
+              borderWidth: 0.5,
+              padding: 10,
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Text style={{ color: "#3A3A3A", fontSize: 16 }}>Expérience</Text>
+            <Text
+              style={{ color: "#3A3A3A", fontSize: 16, fontWeight: "bold" }}
+            >
+              0-2 ans
+            </Text>
+          </View>
         </View>
       </View>
     </View>
