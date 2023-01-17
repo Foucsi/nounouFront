@@ -9,6 +9,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../reducers/users";
+import fetchIp from "../fetchIp.json";
 
 export default function SigninScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -17,7 +18,7 @@ export default function SigninScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
-    const res = await fetch(`http://172.20.10.2:3000/users/signin`, {
+    const res = await fetch(`http://${fetchIp.myIp}:3000/users/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

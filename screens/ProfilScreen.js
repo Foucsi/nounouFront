@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
+import fetchIp from "../fetchIp.json";
 
 export default function ProfilScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
@@ -54,7 +55,7 @@ export default function ProfilScreen({ navigation }) {
         type: "image/jpeg",
       });
 
-      fetch(`http://172.20.10.2:3000/users/upload/${users.token}`, {
+      fetch(`http://${fetchIp.myIp}:3000/users/upload/${users.token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: formData,

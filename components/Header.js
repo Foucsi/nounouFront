@@ -13,6 +13,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
+import fetchIp from "../fetchIp.json";
 
 export default function Header({ navigation }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,7 +21,7 @@ export default function Header({ navigation }) {
   const [image, setImage] = useState();
 
   useEffect(() => {
-    fetch(`http://172.20.10.2:3000/users/getPhoto/${users.username}`)
+    fetch(`http://${fetchIp.myIp}:3000/users/getPhoto/${users.username}`)
       .then((res) => res.json())
       .then((data) => {
         setImage(data.data);

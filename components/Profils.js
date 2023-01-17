@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addPhoto } from "../reducers/users";
+import fetchIp from "../fetchIp.json";
 
 export default function Profils({ profil, navigation, images }) {
   const users = useSelector((state) => state.user.value);

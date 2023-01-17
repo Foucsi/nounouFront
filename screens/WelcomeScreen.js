@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Profils from "../components/Profils";
 import { useSelector } from "react-redux";
+import fetchIp from "../fetchIp.json";
 
 export default function WelcomeScreen({ navigation }) {
   const [allProfil, setAllProfil] = useState();
@@ -12,7 +13,7 @@ export default function WelcomeScreen({ navigation }) {
 
   useEffect(() => {
     const fecthData = async () => {
-      const res = await fetch("http://172.20.10.2:3000/users/getAllProfil");
+      const res = await fetch(`http://${fetchIp.myIp}:3000/users/getAllProfil`);
       const data = await res.json();
       if (data.result) {
         setAllProfil(data.users);
