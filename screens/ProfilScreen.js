@@ -123,7 +123,12 @@ export default function ProfilScreen({ navigation }) {
           }}
         >
           {users.username === name && (
-            <FontAwesome5 name="pencil-alt" size={24} color="#1282A2" />
+            <FontAwesome5
+              name="pencil-alt"
+              size={24}
+              color="#1282A2"
+              onPress={() => navigation.navigate("Setting")}
+            />
           )}
         </View>
         <View
