@@ -4,13 +4,30 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addPhoto } from "../reducers/users";
 import fetchIp from "../fetchIp.json";
+import { useState } from "react";
+import { useEffect } from "react";
+import { addPrice } from "../reducers/users";
 
 export default function Profils({ profil, navigation, images }) {
+  const [price, setPrice] = useState(0);
   const users = useSelector((state) => state.user.value);
+
+  // useEffect(() => {
+  //   fetch(`http://${fetchIp.myIp}:3000/users/getInfo/${users.token}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data) {
+  //         dispatch(addPrice(data.user.price));
+  //         setPrice(data.user.price);
+  //       }
+  //     });
+  // });
+
   const dispatch = useDispatch();
   const handleSubmit = () => {
     navigation.navigate("Profil", {
       name: profil.username,
+      price: profil.price,
     });
     dispatch(addPhoto(profil.photo));
   };
@@ -51,6 +68,7 @@ export default function Profils({ profil, navigation, images }) {
           }}
         >
           <Text>{profil.username}</Text>
+          <Text>{profil.price} €/heure</Text>
         </View>
       </View>
     </TouchableOpacity>

@@ -15,17 +15,10 @@ import fetchIp from "../fetchIp.json";
 export default function ProfilScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
   const [images, setImage] = useState(users.photo);
-  const route = useRoute();
-  const { name } = route.params;
-  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   fetch(`http://192.168.1.51:3000/users/getPhoto/${name}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setImage(data.data);
-  //     });
-  // }, [users.photo]);
+  const route = useRoute();
+  const { name, price } = route.params;
+  const dispatch = useDispatch();
 
   const uploadImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -151,7 +144,7 @@ export default function ProfilScreen({ navigation }) {
           >
             <Text style={{ color: "#fff", fontSize: 16 }}>Tarif indicatif</Text>
             <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>
-              25 €<Text style={{ fontSize: 16 }}>/heure</Text>
+              {price} €<Text style={{ fontSize: 16 }}>/heure</Text>
             </Text>
           </View>
           <View
