@@ -12,6 +12,13 @@ export default function Profils({ profil, navigation, images }) {
   const [price, setPrice] = useState(0);
   const users = useSelector((state) => state.user.value);
 
+  const prof = profil.profil.map((e, index) => {
+    return (
+      <View key={index}>
+        <Text>{e.profil.substr(0, 35)}...</Text>
+      </View>
+    );
+  });
   // useEffect(() => {
   //   fetch(`http://${fetchIp.myIp}:3000/users/getInfo/${users.token}`)
   //     .then((res) => res.json())
@@ -71,6 +78,7 @@ export default function Profils({ profil, navigation, images }) {
             {profil.username}
           </Text>
           <Text>{profil.price} €/heure</Text>
+          {prof}
         </View>
       </View>
     </TouchableOpacity>
