@@ -27,7 +27,9 @@ export default function SettingsPrice({ navigation }) {
       .then((res) => res.json())
       .then((data) => {
         dispatch(addPrice(data.user.price));
+        navigation.navigate("Welcome");
       });
+    setPrice();
   };
 
   return (
