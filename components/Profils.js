@@ -48,8 +48,8 @@ export default function Profils({ profil, navigation, images }) {
             style={{
               height: "100%",
               width: "100%",
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
             }}
             source={{ uri: profil.photo }}
           />
@@ -58,16 +58,18 @@ export default function Profils({ profil, navigation, images }) {
           style={{
             height: "30%",
             width: "100%",
-            alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-evenly",
             backgroundColor: "#fff",
             borderColor: "#D9D6D0",
             borderWidth: 1,
-            borderBottomRightRadius: 30,
-            borderBottomLeftRadius: 30,
+            borderBottomRightRadius: 10,
+            borderBottomLeftRadius: 10,
+            padding: 10,
           }}
         >
-          <Text>{profil.username}</Text>
+          <Text style={{ fontSize: 28, fontWeight: "bold", color: "#3A3A3A" }}>
+            {profil.username}
+          </Text>
           <Text>{profil.price} €/heure</Text>
         </View>
       </View>

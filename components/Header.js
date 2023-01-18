@@ -88,6 +88,7 @@ export default function Header({ navigation }) {
                 onPress={() => {
                   navigation.navigate("Profil", {
                     name: users.username,
+                    price: users.price,
                   });
                   setIsVisible(false);
                 }}

@@ -1,4 +1,3 @@
-Mettre un bouton retour sur le profil du user
 
 Reinitialiser les donnée au logout
 
