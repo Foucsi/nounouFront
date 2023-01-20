@@ -13,10 +13,11 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addPrice, addProfil } from "../reducers/users";
 import { AntDesign } from "@expo/vector-icons";
+import { useEffect } from "react";
 
 export default function SettingsPrice({ navigation }) {
   const [price, setPrice] = useState();
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState();
   const [placeholderPrice, setPlaceHolderPrice] = useState("price");
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
@@ -78,8 +79,11 @@ export default function SettingsPrice({ navigation }) {
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
-            if (price) {
+            if (!price) {
+              setPlaceHolderPrice("Veuillez entrer un montant");
+            } else {
               updatePrice();
+              setPlaceHolderPrice("price");
             }
           }}
         >
@@ -98,13 +102,12 @@ export default function SettingsPrice({ navigation }) {
             borderWidth: 1,
             width: "80%",
             height: 200,
+            padding: 5,
           }}
         />
         <TouchableOpacity
           onPress={() => {
-            if (description === null) {
-              setPlaceHolderPrice("Veuillez entrer un montant");
-            } else {
+            if (description) {
               updateProfil();
             }
           }}
