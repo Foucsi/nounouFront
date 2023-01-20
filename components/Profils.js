@@ -13,7 +13,7 @@ import { addPhoto } from "../reducers/users";
 import fetchIp from "../fetchIp.json";
 import { useState } from "react";
 import { useEffect } from "react";
-import { addPrice } from "../reducers/users";
+import { addProfil } from "../reducers/users";
 import { LogBox } from "react-native";
 
 LogBox.ignoreLogs([
@@ -27,7 +27,7 @@ export default function Profils({ profil, navigation, images }) {
   const newProf = profil.profil.map((e, index) => {
     return (
       <View key={index}>
-        <Text>{e.profil}</Text>
+        <Text style={{ fontSize: 18 }}>{e.profil}</Text>
       </View>
     );
   });

@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
@@ -165,8 +172,10 @@ export default function ProfilScreen({ navigation }) {
             </Text>
           </View>
         </View>
-        <Text>Profil :</Text>
-        {prof}
+        <Text style={{ fontSize: 18, paddingBottom: 20, paddingTop: 5 }}>
+          Profil :
+        </Text>
+        <ScrollView>{prof}</ScrollView>
       </View>
     </View>
   );
