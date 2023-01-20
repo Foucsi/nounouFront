@@ -11,10 +11,13 @@ import { useState } from "react";
 import fetchIp from "../fetchIp.json";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addPrice } from "../reducers/users";
+import { addPrice, addProfil } from "../reducers/users";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function SettingsPrice({ navigation }) {
   const [price, setPrice] = useState();
+  const [description, setDescription] = useState("");
+  const [placeholderPrice, setPlaceHolderPrice] = useState("price");
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
@@ -32,12 +35,35 @@ export default function SettingsPrice({ navigation }) {
     setPrice();
   };
 
+  const updateProfil = () => {
+    fetch(`http://${fetchIp.myIp}:3000/users/editProfil/${users.token}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ profil: description }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        data.user.profil.map((e) => {
+          setDescription(e.profil);
+        });
+        dispatch(addProfil(description));
+        navigation.navigate("Welcome");
+      });
+  };
+
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
-      <View style={{ height: "80%", width: "100%", alignItems: "center" }}>
+      <View
+        style={{
+          height: "80%",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
         <TextInput
-          placeholder="price"
+          placeholder={placeholderPrice}
           value={price}
           onChangeText={(value) => setPrice(value)}
           style={{
@@ -50,12 +76,50 @@ export default function SettingsPrice({ navigation }) {
           }}
         />
         <TouchableOpacity
+          style={styles.btn}
           onPress={() => {
-            updatePrice();
+            if (price) {
+              updatePrice();
+            }
           }}
         >
-          <Text>Valider</Text>
+          <Text style={{ color: "#fff", fontSize: 18 }}>
+            Validation du tarif
+          </Text>
         </TouchableOpacity>
+
+        <TextInput
+          value={description}
+          onChangeText={(value) => setDescription(value)}
+          placeholder="Modifier votre profil"
+          multiline={true}
+          style={{
+            borderColor: "grey",
+            borderWidth: 1,
+            width: "80%",
+            height: 200,
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            if (description === null) {
+              setPlaceHolderPrice("Veuillez entrer un montant");
+            } else {
+              updateProfil();
+            }
+          }}
+          style={styles.btn}
+        >
+          <Text style={{ color: "#fff", fontSize: 18 }}>
+            Validation du profil
+          </Text>
+        </TouchableOpacity>
+        <AntDesign
+          name="stepbackward"
+          size={24}
+          color="#1282A2"
+          onPress={() => navigation.navigate("Welcome")}
+        />
       </View>
     </View>
   );
@@ -66,5 +130,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  btn: {
+    padding: 20,
+    backgroundColor: "#1282A2",
+    borderRadius: 10,
   },
 });

@@ -20,7 +20,7 @@ export default function WelcomeScreen({ navigation }) {
       }
     };
     fecthData();
-  }, [users.price, users.photo]);
+  }, [users.price, users.photo, users.profil]);
 
   return (
     <View style={styles.container}>
