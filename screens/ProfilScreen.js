@@ -17,7 +17,7 @@ export default function ProfilScreen({ navigation }) {
   const [images, setImage] = useState(users.photo);
 
   const route = useRoute();
-  const { name, price } = route.params;
+  const { name, price, prof } = route.params;
   const dispatch = useDispatch();
 
   const uploadImage = async () => {
@@ -165,6 +165,8 @@ export default function ProfilScreen({ navigation }) {
             </Text>
           </View>
         </View>
+        <Text>Profil :</Text>
+        {prof}
       </View>
     </View>
   );

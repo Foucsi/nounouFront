@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -7,10 +14,23 @@ import fetchIp from "../fetchIp.json";
 import { useState } from "react";
 import { useEffect } from "react";
 import { addPrice } from "../reducers/users";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state",
+]);
 
 export default function Profils({ profil, navigation, images }) {
   const [price, setPrice] = useState(0);
   const users = useSelector((state) => state.user.value);
+
+  const newProf = profil.profil.map((e, index) => {
+    return (
+      <View key={index}>
+        <Text>{e.profil}</Text>
+      </View>
+    );
+  });
 
   const prof = profil.profil.map((e, index) => {
     return (
@@ -35,6 +55,7 @@ export default function Profils({ profil, navigation, images }) {
     navigation.navigate("Profil", {
       name: profil.username,
       price: profil.price,
+      prof: newProf,
     });
     dispatch(addPhoto(profil.photo));
   };
@@ -78,7 +99,7 @@ export default function Profils({ profil, navigation, images }) {
             {profil.username}
           </Text>
           <Text>{profil.price} €/heure</Text>
-          {prof}
+          <ScrollView>{prof}</ScrollView>
         </View>
       </View>
     </TouchableOpacity>
