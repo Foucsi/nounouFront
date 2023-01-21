@@ -21,6 +21,9 @@ export default function AvisScreen({ navigation }) {
   const users = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
+  let today = new Date();
+  let options = { day: "numeric", month: "long", year: "numeric" };
+
   const updateAvis = () => {
     fetch(`http://${fetchIp.myIp}:3000/users/addAvis/${users.token}`, {
       method: "POST",
@@ -47,9 +50,11 @@ export default function AvisScreen({ navigation }) {
           borderWidth: 1,
           padding: 10,
           marginTop: 5,
+          borderRadius: 10,
         }}
       >
         <Text>{e.avis}</Text>
+        <Text>Commenté le : {today.toLocaleDateString("fr-FR", options)}</Text>
       </View>
     );
   });
