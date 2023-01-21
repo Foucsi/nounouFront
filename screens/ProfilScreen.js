@@ -109,7 +109,10 @@ export default function ProfilScreen({ navigation }) {
           <AntDesign name="star" size={24} color="#FEB60A" />
           <AntDesign name="star" size={24} color="#FEB60A" />
           <AntDesign name="star" size={24} color="#FEB60A" />
-          <Text>(2 avis)</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Avis")}>
+            <Text>(2 avis)</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
             <AntDesign name="stepbackward" size={22} color="#1282A2" />
           </TouchableOpacity>

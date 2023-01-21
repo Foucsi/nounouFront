@@ -8,6 +8,7 @@ import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import ProfilScreen from "./screens/ProfilScreen";
 import SettingsPrice from "./screens/SettingsPrice";
+import AvisScreen from "./screens/AvisScreen";
 
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -31,6 +32,7 @@ export default function App() {
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Profil" component={ProfilScreen} />
           <Stack.Screen name="Setting" component={SettingsPrice} />
+          <Stack.Screen name="Avis" component={AvisScreen} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>
