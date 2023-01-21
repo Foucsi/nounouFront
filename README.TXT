@@ -8,3 +8,5 @@ Mettre en place le systeme de notation avec les avis
 designer les avis des users
 
 Gerer le bug des photo en accedant au profil depuis le menu hamburger
+
+Enregistrer la date du commentaire en db

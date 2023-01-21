@@ -25,18 +25,20 @@ export default function AvisScreen({ navigation }) {
   let options = { day: "numeric", month: "long", year: "numeric" };
 
   const updateAvis = () => {
-    fetch(`http://${fetchIp.myIp}:3000/users/addAvis/${users.token}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ avis: avisInput }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.result) {
-          dispatch(addAvis(avisInput));
-          navigation.navigate("Welcome");
-        }
-      });
+    if (avisInput) {
+      fetch(`http://${fetchIp.myIp}:3000/users/addAvis/${users.token}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ avis: avisInput }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.result) {
+            dispatch(addAvis(avisInput));
+            navigation.navigate("Welcome");
+          }
+        });
+    }
   };
 
   const test = avis.map((e, index) => {
@@ -80,6 +82,9 @@ export default function AvisScreen({ navigation }) {
           <Text style={{ color: "#fff", fontSize: 18 }}>
             Publier votre avis
           </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
+          <Text>retour</Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={{ width: "80%" }}>{test}</ScrollView>
