@@ -8,6 +8,7 @@ const initialState = {
     password: null,
     email: null,
     profil: [],
+    avis: [],
     photo:
       "https://media.istockphoto.com/id/1300845620/fr/vectoriel/appartement-dic%C3%B4ne-dutilisateur-isol%C3%A9-sur-le-fond-blanc-symbole-utilisateur.jpg?b=1&s=170667a&w=0&k=20&c=HEO2nP4_uEAn0_JzVTU6_Y5hyn-qHxyCrWWTirBvScs=",
   },
@@ -39,9 +40,12 @@ export const userSlice = createSlice({
     addPrice: (state, action) => {
       state.value.price = action.payload;
     },
+    addAvis: (state, action) => {
+      state.value.avis.push(action.payload);
+    },
   },
 });
 
-export const { login, logout, addProfil, addPhoto, addPrice } =
+export const { login, logout, addProfil, addPhoto, addPrice, addAvis } =
   userSlice.actions;
 export default userSlice.reducer;

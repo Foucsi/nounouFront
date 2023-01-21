@@ -56,6 +56,7 @@ export default function Profils({ profil, navigation, images }) {
       name: profil.username,
       price: profil.price,
       prof: newProf,
+      avis: profil.avis,
     });
     dispatch(addPhoto(profil.photo));
   };

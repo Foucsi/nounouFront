@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Profils from "../components/Profils";
 import { useSelector } from "react-redux";
 import fetchIp from "../fetchIp.json";
+import { addAvis } from "../reducers/users";
 
 export default function WelcomeScreen({ navigation }) {
   const [allProfil, setAllProfil] = useState();
@@ -20,7 +21,7 @@ export default function WelcomeScreen({ navigation }) {
       }
     };
     fecthData();
-  }, [users.price, users.photo, users.profil]);
+  }, [users.price, users.photo, users.profil, users.avis]);
 
   return (
     <View style={styles.container}>

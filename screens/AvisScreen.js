@@ -7,8 +7,52 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
+import { NavigationRouteContext, useRoute } from "@react-navigation/native";
+import fetchIp from "../fetchIp.json";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { addAvis } from "../reducers/users";
+import { useDispatch } from "react-redux";
 
-export default function AvisScreen() {
+export default function AvisScreen({ navigation }) {
+  const [avisInput, setAvisInput] = useState("");
+  const route = useRoute();
+  const { avis } = route.params;
+  const users = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
+  const updateAvis = () => {
+    fetch(`http://${fetchIp.myIp}:3000/users/addAvis/${users.token}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ avis: avisInput }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.result) {
+          dispatch(addAvis(avisInput));
+          navigation.navigate("Welcome");
+        }
+      });
+  };
+
+  const test = avis.map((e, index) => {
+    return (
+      <View
+        key={index}
+        style={{
+          width: "100%",
+          height: 100,
+          borderColor: "grey",
+          borderWidth: 1,
+          padding: 10,
+          marginTop: 5,
+        }}
+      >
+        <Text>{e.avis}</Text>
+      </View>
+    );
+  });
   return (
     <View style={styles.container}>
       <View style={styles.containerCom}>
@@ -16,8 +60,11 @@ export default function AvisScreen() {
           placeholder="Votre avis ..."
           style={styles.input}
           multiline={true}
+          value={avisInput}
+          onChangeText={(value) => setAvisInput(value)}
         />
         <TouchableOpacity
+          onPress={() => updateAvis()}
           style={{
             backgroundColor: "#1282A2",
             padding: 20,
@@ -30,9 +77,7 @@ export default function AvisScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-      <ScrollView>
-        <Text>liste des avis ici</Text>
-      </ScrollView>
+      <ScrollView style={{ width: "80%" }}>{test}</ScrollView>
     </View>
   );
 }

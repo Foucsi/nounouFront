@@ -24,7 +24,7 @@ export default function ProfilScreen({ navigation }) {
   const [images, setImage] = useState(users.photo);
 
   const route = useRoute();
-  const { name, price, prof } = route.params;
+  const { name, price, prof, avis } = route.params;
   const dispatch = useDispatch();
 
   const uploadImage = async () => {
@@ -109,8 +109,10 @@ export default function ProfilScreen({ navigation }) {
           <AntDesign name="star" size={24} color="#FEB60A" />
           <AntDesign name="star" size={24} color="#FEB60A" />
           <AntDesign name="star" size={24} color="#FEB60A" />
-          <TouchableOpacity onPress={() => navigation.navigate("Avis")}>
-            <Text>(2 avis)</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Avis", { avis: avis })}
+          >
+            <Text>{avis.length} avis</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
